@@ -235,3 +235,4 @@ pip-selfcheck.json
 # Course Specific Test Files
 test*.csv
 test*.json
+junit
