@@ -19,7 +19,6 @@ You'll edit this file in Task 1.
 """
 
 from helpers import cd_to_datetime, datetime_to_str
-from loguru import logger
 
 
 class NearEarthObject:
@@ -49,6 +48,7 @@ class NearEarthObject:
         self.name = None if name == "" else name
         self.diameter = float("nan") if diameter == "" else float(diameter)
         self.hazardous = True if hazardous == "Y" else False
+        self.info = info
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
@@ -101,6 +101,7 @@ class CloseApproach:
         self.time = None if time == "" else cd_to_datetime(time)
         self.distance = 0.0 if distance == "" else float(distance)
         self.velocity = 0.0 if velocity == "" else float(velocity)
+        self.info = info
 
         # Create an attribute for the referenced NEO, originally None.
         self.neo = None
@@ -136,7 +137,6 @@ class CloseApproach:
 
     def serialize(self):
         """Serialize data into object"""
-        logger.debug(self.neo)
         return {
             "datetime_utc": self.time_str,
             "distance_au": self.distance,
