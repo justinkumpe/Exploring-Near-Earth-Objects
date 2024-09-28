@@ -19,6 +19,7 @@ You'll edit this file in Task 1.
 """
 
 from helpers import cd_to_datetime, datetime_to_str
+from loguru import logger
 
 
 class NearEarthObject:
@@ -87,7 +88,6 @@ class CloseApproach:
     `NEODatabase` constructor.
     """
 
-
     def __init__(self, designation, time="", distance="", velocity="", **info):
         """Create a new `CloseApproach`.
 
@@ -133,3 +133,18 @@ class CloseApproach:
             f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, "
             f"velocity={self.velocity:.2f}, neo={self.neo!r})"
         )
+
+    def serialize(self):
+        """Serialize data into object"""
+        logger.debug(self.neo)
+        return {
+            "datetime_utc": self.time_str,
+            "distance_au": self.distance,
+            "velocity_km_s": self.velocity,
+            "neo": {
+                "designation": self.neo.designation,
+                "name": self.neo.name,
+                "diameter_km": self.neo.diameter,
+                "potentially_hazardous": self.neo.hazardous,
+            },
+        }
